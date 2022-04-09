@@ -12,7 +12,7 @@ QString oasisRecord::toString() {
     QString displayInfo =
               "Session Type: " + sessionType + "\n"
             + "Intensity Level: " + intensityLevel + "\n"
-            + "Duration: " + duration + "\n"
+            + "Duration: " + duration + "\n";
     return displayInfo;
 }
 

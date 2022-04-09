@@ -42,6 +42,13 @@ int Therapy::getFrequencyH()
 }
 
 
+
+
+void Therapy::setDuration(int d)
+{
+    duration=d;
+}
+
 void Therapy::setIntensity(int i)
 {
     if (i<1)
@@ -50,4 +57,17 @@ void Therapy::setIntensity(int i)
         intensity=8;
     else
         intensity=i;
+}
+
+
+void Therapy::print()
+{
+    qInfo("Therapy:");
+    qInfo()<<"Name: "<<name;
+    qInfo()<<"Duration: "<<duration;
+    qInfo()<<"Intensity: "<<intensity;
+    qInfo()<<"CES Mode: "<<cesMode;
+    qInfo()<<"Lower Frequency: "<<frequencyL;
+    qInfo()<<"Upper Frequency: "<<frequencyH;
+    qInfo("");
 }

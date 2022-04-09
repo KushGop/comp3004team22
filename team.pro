@@ -16,10 +16,18 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    Battery.cpp \
+    Control.cpp \
+    OasisRecord.cpp \
+    Therapy.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
+    Battery.h \
+    Control.h \
+    OasisRecord.h \
+    Therapy.h \
     mainwindow.h
 
 FORMS += \
