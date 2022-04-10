@@ -15,18 +15,22 @@ class Control
         ~Control();
 
         bool getSessionInProg();
+        Therapy* getCurrentTherapy();
 
         void replaceBattery();
         void togglePower(bool); //Use Case 2 & 3
-        void checkBatteryLevel(); //Use Case 4
+        bool checkBatteryLevel(); //Use Case 4
         void cycleSessionGroup(int); //Use Case 5
         void cycleSessionNumber(bool); //Use Case 5
 
         void updateClipStatus(bool,bool); //use Case 6
         bool connectionTest(); //Use Case 6
 
+        bool startTherapySession();
+        bool runningTherapyCheck(); //Use Case 5 & Main Case
+        void endTherapySession();
 
-        void runTherapySession(); //Use Case 5 & Main Case
+        void drainBattery();
 
         void adjustIntensity(bool); //Use Case 7
 

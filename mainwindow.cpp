@@ -21,7 +21,17 @@ MainWindow::MainWindow(Control *ctrl, QWidget *parent)
     connect(ui->intDownButton, SIGNAL(released()), this, SLOT(intDown()));
 
     //Select Button
-    connect(ui->selectButton, SIGNAL(released()), this, SLOT(run()));
+    mainRun.setSingleShot(true);
+    connect(ui->selectButton, &QPushButton::pressed, this, &MainWindow::run);
+    connect(&mainRun, &QTimer::timeout, this, &MainWindow::finish);
+
+    connect(&checkupInterval, &QTimer::timeout, this, &MainWindow::runCheckup);
+    connect(&batteryDrainer, &QTimer::timeout, this, &MainWindow::batteryDrain);
+
+
+    //Ear Clips
+    connect(ui->leftClipSelector, SIGNAL(stateChanged(int)), this, SLOT(updateClips()));
+    connect(ui->rightClipSelector, SIGNAL(stateChanged(int)), this, SLOT(updateClips()));
 }
 
 MainWindow::~MainWindow()
@@ -72,10 +82,38 @@ void MainWindow::intDown()
 
 void MainWindow::updateClips()
 {
-
+    controller->updateClipStatus(ui->leftClipSelector->isChecked(),ui->rightClipSelector->isChecked());
 }
 
 void MainWindow::run()
 {
-   controller->runTherapySession();
+   if(controller->startTherapySession())
+   {
+       mainRun.start((controller->getCurrentTherapy()->getDuration())*1000);
+       batteryDrainer.start(1000);
+       checkupInterval.start(5000);
+   }
+}
+
+void MainWindow::finish()
+{
+   controller->endTherapySession();
+   checkupInterval.stop();
+   batteryDrainer.stop();
+}
+
+void MainWindow::runCheckup()
+{
+   qInfo("DELETE: Checkup called");
+   if(!controller->runningTherapyCheck())
+   {
+       mainRun.stop();
+       checkupInterval.stop();
+       batteryDrainer.stop();
+   }
+}
+
+void MainWindow::batteryDrain()
+{
+   controller->drainBattery();
 }

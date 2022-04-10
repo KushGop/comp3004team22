@@ -36,7 +36,7 @@ bool Battery::batteryLevelCritical()
 
 void Battery::drainBattery(int power)
 {
-    //Will be called on each iteration, drains up to 1% per iteration
+    //Drains up to 1% per minute
 
     if(power>8)
         power=8;
@@ -44,5 +44,5 @@ void Battery::drainBattery(int power)
     if(power<1)
         power=1;
 
-    batteryLevel-=(power/8);
+    batteryLevel-=((double)power/8);
 }

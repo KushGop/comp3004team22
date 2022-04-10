@@ -6,6 +6,7 @@
 #include <QTimer>
 
 #include "Control.h"
+#include "Therapy.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +25,9 @@ private:
     Control *controller;
 
     QTimer pwrPress;
+    QTimer mainRun;
+    QTimer checkupInterval;
+    QTimer batteryDrainer;
 
 private slots:
     void powerShortClick();
@@ -33,6 +37,8 @@ private slots:
     void intDown();
     void updateClips();
     void run();
-
+    void finish();
+    void runCheckup();
+    void batteryDrain();
 };
 #endif // MAINWINDOW_H

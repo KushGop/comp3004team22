@@ -2,10 +2,10 @@
 
 
 Control::Control()
-    : poweredOn(false), sessionGroup(1), sessionNumber(0), sessionInProg(false)
+    : poweredOn(false), sessionGroup(1), sessionNumber(0), sessionInProg(false), leftClip(false), rightClip(false)
 {
     battery = new Battery(100.0);
-    currentTherapy = new Therapy("Custom",20,1,"-",0,0);
+    currentTherapy = new Therapy("Custom",20,4,"-",0,0);
 }
 
 Control::~Control()
@@ -18,6 +18,11 @@ Control::~Control()
 bool Control::getSessionInProg()
 {
     return sessionInProg;
+}
+
+Therapy* Control::getCurrentTherapy()
+{
+    return currentTherapy;
 }
 
 
@@ -35,6 +40,7 @@ void Control::togglePower(bool critShutdown)
     {
         qInfo("Battery Level Critically Low: Shutting Down");
         poweredOn=false;
+        sessionInProg=false;
         return;
     }
 
@@ -42,11 +48,13 @@ void Control::togglePower(bool critShutdown)
     {
         qInfo("Shutting Down");
         poweredOn=false;
+        sessionInProg=false;
     }
     else
     {
         qInfo("Turning On");
         poweredOn=true;
+        sessionInProg=false;
         checkBatteryLevel();
     }
 
@@ -54,18 +62,18 @@ void Control::togglePower(bool critShutdown)
 }
 
 //Use Case 4
-void Control::checkBatteryLevel()
+bool Control::checkBatteryLevel()
 {
     if(!poweredOn)
     {
         qInfo("ERROR: Cannot check battery level when device is off");
-        return;
+        return false;
     }
 
     if(poweredOn && battery->batteryLevelCritical())
     {
         togglePower(true);
-        return;
+        return false;
     }
 
     if(poweredOn && battery->batteryLevelLow())
@@ -74,6 +82,7 @@ void Control::checkBatteryLevel()
     }
 
     qInfo()<<"Current Battery Level: "<<battery->getBatteryLevel();
+    return true;
 }
 
 //Use Case 5
@@ -141,58 +150,74 @@ void Control::updateClipStatus(bool left, bool right)
 {
     leftClip=left;
     rightClip=right;
+    qInfo()<<"DELETE: Current Clip Status "<<leftClip<<" and "<<rightClip;
 }
 
 bool Control::connectionTest()
 {
-    //return (leftClip && rightClip);
-    return true;
+    return (leftClip && rightClip);
 }
 
-void Control::runTherapySession()
+bool Control::startTherapySession()
 {
-    //Here we will treat every iteration of the while as a minute.
-
     if(!poweredOn)
     {
         qInfo("ERROR: Cannot run session when device is off");
-        return;
+        return false;
     }
 
     if(sessionInProg)
     {
         qInfo("ERROR: Session already in progress");
-        return;
+        return false;
     }
 
     if(!connectionTest())
     {
         qInfo("ERROR: Please connect both ear clips");
-        return;
+        return false;
     }
 
-    int counter = currentTherapy->getDuration();
-
+    qInfo(" ");
     qInfo("Starting Session:");
     currentTherapy->print();
     sessionInProg=true;
+    return true;
 
-    while(counter>0)
+
+}
+
+bool Control::runningTherapyCheck()
+{
+    if(!poweredOn)
     {
-        qInfo()<<"Minutes left for session: "<<counter;
-
-        //connectionTest();
-
-        if((counter%5==0) && (counter!=currentTherapy->getDuration())) //Every 5 minutes check battery level
-            checkBatteryLevel();
-
-        battery->drainBattery(currentTherapy->getIntensity());
-
-        counter--;
-        sleep(2);
+        qInfo("ERROR: Cannot run session when device is off");
+        return false;
     }
 
+    if(!sessionInProg)
+    {
+        qInfo("ERROR: Session not in progress");
+        return false;
+    }
+
+    if(!checkBatteryLevel())
+        return false;
+
+    return true;
+}
+
+void Control::endTherapySession()
+{
+
+    qInfo("Session Complete");
     sessionInProg=false;
+    togglePower(false);
+}
+
+void Control::drainBattery()
+{
+    battery->drainBattery(currentTherapy->getIntensity());
 }
 
 //Use Case 7
@@ -202,7 +227,7 @@ void Control::adjustIntensity(bool upArrow) //upArrow is true when the up INT bu
 
     if(!poweredOn || !sessionInProg)
     {
-        qInfo("ERROR: Cannot change session number when device is off or session is not in progress");
+        qInfo("ERROR: Cannot change session intensity when device is off or session is not in progress");
         return;
     }
 
