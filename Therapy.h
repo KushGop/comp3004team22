@@ -24,7 +24,7 @@
 class Therapy
 {
     public:
-        Therapy(QString,int,int,QString,int,int);
+        Therapy(QString,int,int,QString,double,double);
         ~Therapy();
 
         //Remove what we don't need
@@ -37,6 +37,9 @@ class Therapy
 
         void setDuration(int);
         void setIntensity(int i);
+        void setCesMode(QString c);
+        void setFrequencyL(double f);
+        void setFrequencyH(double f);
 
 
         void print();
@@ -46,8 +49,8 @@ class Therapy
         int duration;
         int intensity;
         QString cesMode;
-        int frequencyL;
-        int frequencyH;
+        double frequencyL;
+        double frequencyH;
 };
 
 #endif // THERAPY_H

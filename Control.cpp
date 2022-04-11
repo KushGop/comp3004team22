@@ -5,7 +5,34 @@ Control::Control()
     : poweredOn(false), sessionGroup(1), sessionNumber(0), sessionInProg(false), leftClip(false), rightClip(false)
 {
     battery = new Battery(100.0);
-    currentTherapy = new Therapy("Custom",20,4,"-",0,0);
+    currentTherapy = new Therapy("Custom",20,4,"MET",0.5,3);
+
+    cesModes[0]="MET";
+    cesModes[1]="Sub-Delta";
+    cesModes[2]="Delta";
+    cesModes[3]="Theta";
+    cesModes[4]="Alpha";
+    cesModes[5]="SMR";
+    cesModes[6]="Beta";
+    cesModes[7]="100 Hz";
+
+    lFrequencies[0]=0.5;
+    lFrequencies[1]=0.5;
+    lFrequencies[2]=2.5;
+    lFrequencies[3]=6;
+    lFrequencies[4]=9;
+    lFrequencies[5]=12;
+    lFrequencies[6]=18;
+    lFrequencies[7]=100;
+
+    hFrequencies[0]=3;
+    hFrequencies[1]=3;
+    hFrequencies[2]=5;
+    hFrequencies[3]=8;
+    hFrequencies[4]=11;
+    hFrequencies[5]=15;
+    hFrequencies[6]=22;
+    hFrequencies[7]=100;
 }
 
 Control::~Control()
@@ -143,7 +170,9 @@ void Control::cycleSessionNumber(bool upArrow) //upArrow is true when the up INT
         qInfo()<<"DELETE: Session Number is now "<<sessionNumber;
     }
 
-    //Handle therapy name and frequencies here
+    currentTherapy->setCesMode(cesModes[sessionNumber]);
+    currentTherapy->setFrequencyL(lFrequencies[sessionNumber]);
+    currentTherapy->setFrequencyH(hFrequencies[sessionNumber]);
 }
 
 void Control::updateClipStatus(bool left, bool right)

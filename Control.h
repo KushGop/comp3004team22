@@ -3,6 +3,7 @@
 
 
 #include <QtDebug>
+#include <QString>
 #include <unistd.h>
 
 #include "Battery.h"
@@ -46,6 +47,9 @@ class Control
         bool leftClip;
         bool rightClip;
 
+        QString cesModes[8];
+        int lFrequencies[8];
+        int hFrequencies[8];
 };
 
 #endif // CONTROL_H

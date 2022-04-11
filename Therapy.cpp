@@ -1,6 +1,6 @@
 #include "Therapy.h"
 
-Therapy::Therapy(QString n, int d, int i, QString ces, int fL, int fH)
+Therapy::Therapy(QString n, int d, int i, QString ces, double fL, double fH)
     :name(n), duration(d), cesMode(ces), frequencyL(fL), frequencyH(fH)
 {
     setIntensity(i);
@@ -42,8 +42,6 @@ int Therapy::getFrequencyH()
 }
 
 
-
-
 void Therapy::setDuration(int d)
 {
     duration=d;
@@ -59,6 +57,21 @@ void Therapy::setIntensity(int i)
         intensity=i;
 }
 
+void Therapy::setCesMode(QString c)
+{
+    cesMode=c;
+}
+
+void Therapy::setFrequencyL(double f)
+{
+    frequencyL=f;
+}
+
+void Therapy::setFrequencyH(double f)
+{
+    frequencyH=f;
+}
+
 
 void Therapy::print()
 {
@@ -69,5 +82,5 @@ void Therapy::print()
     qInfo()<<"CES Mode: "<<cesMode;
     qInfo()<<"Lower Frequency: "<<frequencyL;
     qInfo()<<"Upper Frequency: "<<frequencyH;
-    qInfo("");
+    qInfo(" ");
 }
