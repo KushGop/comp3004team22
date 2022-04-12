@@ -8,7 +8,7 @@ class Battery {
 public:
     
     //Constructor
-    Battery(QString& batteryStaus, double batteryLevel);
+    Battery(double batteryLevel);
 
     //Battery Level
     void setBatteryLevel(double);
@@ -16,11 +16,15 @@ public:
     
     //BatteryStatus
     //void setBatteryStatus(QString&); --- maybe?
-    QString getBatteryStatus();
+    //QString getBatteryStatus();
+
+    bool batteryLevelLow();
+    bool batteryLevelCritical();
+
+    void drainBattery(int);
     
 
 private:
-    QString batteryStatus;
     double batteryLevel;
 };
 

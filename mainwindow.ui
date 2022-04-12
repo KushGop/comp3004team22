@@ -112,7 +112,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QPushButton" name="intUpButton">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -133,7 +133,7 @@
      <string>▲</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_2">
+   <widget class="QPushButton" name="intDownButton">
     <property name="geometry">
      <rect>
       <x>370</x>
@@ -172,7 +172,7 @@
      <set>Qt::AlignCenter</set>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_3">
+   <widget class="QPushButton" name="powerButton">
     <property name="geometry">
      <rect>
       <x>470</x>
@@ -190,7 +190,7 @@
      <string>⏻</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_4">
+   <widget class="QPushButton" name="selectButton">
     <property name="geometry">
      <rect>
       <x>110</x>
@@ -796,33 +796,7 @@
      <string>IDCS</string>
     </property>
    </widget>
-   <widget class="QRadioButton" name="radioButton">
-    <property name="geometry">
-     <rect>
-      <x>800</x>
-      <y>60</y>
-      <width>96</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Left Clip</string>
-    </property>
-   </widget>
-   <widget class="QRadioButton" name="radioButton_2">
-    <property name="geometry">
-     <rect>
-      <x>880</x>
-      <y>60</y>
-      <width>96</width>
-      <height>23</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Right Clip</string>
-    </property>
-   </widget>
-   <widget class="QComboBox" name="comboBox">
+   <widget class="QComboBox" name="sessionGroupSelector">
     <property name="geometry">
      <rect>
       <x>810</x>
@@ -883,7 +857,7 @@
      <string>Intensity:</string>
     </property>
    </widget>
-   <widget class="QComboBox" name="comboBox_2">
+   <widget class="QComboBox" name="sessionTypeSelector">
     <property name="geometry">
      <rect>
       <x>810</x>
@@ -900,6 +874,11 @@
     <item>
      <property name="text">
       <string>Sub-Delta</string>
+     </property>
+    </item>
+    <item>
+     <property name="text">
+      <string>Delta</string>
      </property>
     </item>
     <item>
@@ -928,7 +907,7 @@
      </property>
     </item>
    </widget>
-   <widget class="QLCDNumber" name="lcdNumber">
+   <widget class="QLCDNumber" name="timeDisplay">
     <property name="geometry">
      <rect>
       <x>880</x>
@@ -938,7 +917,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QLCDNumber" name="lcdNumber_2">
+   <widget class="QLCDNumber" name="intensityDisplay">
     <property name="geometry">
      <rect>
       <x>880</x>
@@ -948,7 +927,7 @@
      </rect>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton_5">
+   <widget class="QPushButton" name="recordButton">
     <property name="geometry">
      <rect>
       <x>850</x>
@@ -1043,7 +1022,7 @@
      </item>
     </layout>
    </widget>
-   <widget class="QPushButton" name="pushButton_6">
+   <widget class="QPushButton" name="addSessionButton">
     <property name="geometry">
      <rect>
       <x>810</x>
@@ -1054,6 +1033,55 @@
     </property>
     <property name="text">
      <string>Add Session</string>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="replaceBatteryButton">
+    <property name="geometry">
+     <rect>
+      <x>460</x>
+      <y>490</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Replace Battery</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="leftClipSelector">
+    <property name="geometry">
+     <rect>
+      <x>810</x>
+      <y>60</y>
+      <width>82</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Left Clip</string>
+    </property>
+   </widget>
+   <widget class="QCheckBox" name="rightClipSelector">
+    <property name="geometry">
+     <rect>
+      <x>880</x>
+      <y>60</y>
+      <width>82</width>
+      <height>23</height>
+     </rect>
+    </property>
+    <property name="text">
+     <string>Right Clip</string>
+    </property>
+   </widget>
+   <widget class="QSpinBox" name="customDuration">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>110</y>
+      <width>45</width>
+      <height>26</height>
+     </rect>
     </property>
    </widget>
   </widget>

@@ -2,6 +2,7 @@
 #define THERAPY_H
 
 #include <QString>
+#include <QtDebug>
 
 /*
  * Purpose: Entity class that holds relevant information about a therapy.
@@ -23,7 +24,7 @@
 class Therapy
 {
     public:
-        Therapy(QString,int,int,QString,int,int);
+        Therapy(QString,int,int,QString,double,double);
         ~Therapy();
 
         //Remove what we don't need
@@ -34,16 +35,22 @@ class Therapy
         int getFrequencyL();
         int getFrequencyH();
 
+        void setDuration(int);
+        void setIntensity(int i);
+        void setCesMode(QString c);
+        void setFrequencyL(double f);
+        void setFrequencyH(double f);
+
+
+        void print();
+
     private:
         QString name;
         int duration;
         int intensity;
         QString cesMode;
-        int frequencyL;
-        int frequencyH;
-
-        //If we decide to make this dynamic it can just be moved to public
-        void setIntensity(int i);
+        double frequencyL;
+        double frequencyH;
 };
 
 #endif // THERAPY_H
