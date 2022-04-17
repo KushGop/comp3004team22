@@ -84,3 +84,17 @@ void Therapy::print()
     qInfo()<<"Upper Frequency: "<<frequencyH;
     qInfo(" ");
 }
+
+QString Therapy::sessionString()
+{
+    QString a = "";
+    a+="\nName: "+name;
+    a+="\nDuration: "+QString::number(duration);
+    a+="\nIntensity: "+QString::number(intensity);
+    a+="\nCES Mode: "+cesMode;
+    a+="\nLower Frequency: "+QString::number(frequencyL);
+    a+="\nUpper Frequency: "+QString::number(frequencyH);
+
+    return a;
+
+}

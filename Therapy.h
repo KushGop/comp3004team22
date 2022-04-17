@@ -43,6 +43,7 @@ class Therapy
 
 
         void print();
+        QString sessionString();
 
     private:
         QString name;

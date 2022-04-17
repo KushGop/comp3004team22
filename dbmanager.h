@@ -1,7 +1,9 @@
 #ifndef DBMANAGER_H
 #define DBMANAGER_H
 
-#include <QtSql>
+#include <QSqlDatabase>
+#include <QSqlQuery>
+#include <QSql>
 #include <QDebug>
 #include <QFileInfo>
 
@@ -13,6 +15,9 @@ class dbmanager
 {
 public:
     dbmanager();
+    void addSession(QString name, int duration, int intensity,QString cesMode, int frequencyl, int frequencyh);
+    QList<Therapy*>* getSessions(QString name);
+    bool deleteSession(QString name);
 };
 
 #endif // DBMANAGER_H

@@ -1,4 +1,4 @@
-QT       += core gui
+QT       += core gui sql
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
@@ -17,6 +17,7 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Battery.cpp \
+    dbmanager.cpp \
     Control.cpp \
     OasisRecord.cpp \
     Therapy.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     Battery.h \
+    dbmanager.h \
     Control.h \
     OasisRecord.h \
     Therapy.h \

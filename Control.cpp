@@ -61,14 +61,15 @@ void Control::replaceBattery()
 }
 
 //Use Case 2 & 3
-void Control::togglePower(bool critShutdown)
+bool Control::togglePower(bool critShutdown)
 {
     if(poweredOn&&critShutdown)
     {
         qInfo("Battery Level Critically Low: Shutting Down");
         poweredOn=false;
         sessionInProg=false;
-        return;
+        reset();
+        return false;
     }
 
     if(poweredOn)
@@ -76,6 +77,7 @@ void Control::togglePower(bool critShutdown)
         qInfo("Shutting Down");
         poweredOn=false;
         sessionInProg=false;
+        reset();
     }
     else
     {
@@ -86,6 +88,7 @@ void Control::togglePower(bool critShutdown)
     }
 
     qInfo(" ");
+    return poweredOn;
 }
 
 //Use Case 4
@@ -113,12 +116,12 @@ bool Control::checkBatteryLevel()
 }
 
 //Use Case 5
-void Control::cycleSessionGroup(int cus)
+int Control::cycleSessionGroup(int cus)
 {
     if(!poweredOn || sessionInProg)
     {
         qInfo("ERROR: Cannot change session group when device is off or session is in progress");
-        return;
+        return -1;
     }
 
     sessionGroup+=1; //Cycling
@@ -130,31 +133,32 @@ void Control::cycleSessionGroup(int cus)
     {
         currentTherapy->setDuration(20);
         qInfo()<<"Therapy duration set to 20 minutes";
-        return;
+        return 0;
     }
 
     if(sessionGroup==2)
     {
         currentTherapy->setDuration(45);
         qInfo()<<"Therapy duration set to 45 minutes";
-        return;
+        return 1;
     }
 
     if(sessionGroup==3)
     {
         currentTherapy->setDuration(cus);
         qInfo()<<"Therapy duration set to "<<cus<<" minutes";
-        return;
+        return 2;
     }
+    return sessionGroup-1;
 }
 
 //Use Case 5
-void Control::cycleSessionNumber(bool upArrow) //upArrow is true when the up INT button is pressed
+int Control::cycleSessionNumber(bool upArrow) //upArrow is true when the up INT button is pressed
 {
     if(!poweredOn || sessionInProg)
     {
         qInfo("ERROR: Cannot change session number when device is off or session is in progress");
-        return;
+        return -1;
     }
 
     if(upArrow)
@@ -173,6 +177,7 @@ void Control::cycleSessionNumber(bool upArrow) //upArrow is true when the up INT
     currentTherapy->setCesMode(cesModes[sessionNumber]);
     currentTherapy->setFrequencyL(lFrequencies[sessionNumber]);
     currentTherapy->setFrequencyH(hFrequencies[sessionNumber]);
+    return sessionNumber;
 }
 
 void Control::updateClipStatus(bool left, bool right)
@@ -250,14 +255,14 @@ void Control::drainBattery()
 }
 
 //Use Case 7
-void Control::adjustIntensity(bool upArrow) //upArrow is true when the up INT button is pressed)
+int Control::adjustIntensity(bool upArrow) //upArrow is true when the up INT button is pressed)
 {
     int cIntensity=currentTherapy->getIntensity();
 
     if(!poweredOn || !sessionInProg)
     {
         qInfo("ERROR: Cannot change session intensity when device is off or session is not in progress");
-        return;
+        return currentTherapy->getIntensity();
     }
 
 
@@ -274,4 +279,12 @@ void Control::adjustIntensity(bool upArrow) //upArrow is true when the up INT bu
 
     currentTherapy->setIntensity(cIntensity);
     qInfo()<<"DELETE: Intensity is now "<<currentTherapy->getIntensity();
+    return currentTherapy->getIntensity();
+}
+
+void Control::reset()
+{
+    sessionGroup=0;
+    sessionNumber=0;
+    currentTherapy->setIntensity(1);
 }

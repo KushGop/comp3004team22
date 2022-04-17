@@ -19,10 +19,10 @@ class Control
         Therapy* getCurrentTherapy();
 
         void replaceBattery();
-        void togglePower(bool); //Use Case 2 & 3
+        bool togglePower(bool); //Use Case 2 & 3
         bool checkBatteryLevel(); //Use Case 4
-        void cycleSessionGroup(int); //Use Case 5
-        void cycleSessionNumber(bool); //Use Case 5
+        int cycleSessionGroup(int); //Use Case 5
+        int cycleSessionNumber(bool); //Use Case 5
 
         void updateClipStatus(bool,bool); //use Case 6
         bool connectionTest(); //Use Case 6
@@ -33,7 +33,9 @@ class Control
 
         void drainBattery();
 
-        void adjustIntensity(bool); //Use Case 7
+        int adjustIntensity(bool); //Use Case 7
+
+        void reset();
 
     private:
         Battery *battery;

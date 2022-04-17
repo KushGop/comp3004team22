@@ -4,6 +4,11 @@
 #include <QMainWindow>
 #include <QtDebug>
 #include <QTimer>
+#include <QLabel>
+#include <QFile>
+#include <QTextStream>
+#include <QString>
+#include <QDebug>
 
 #include "Control.h"
 #include "Therapy.h"
@@ -29,6 +34,10 @@ private:
     QTimer checkupInterval;
     QTimer batteryDrainer;
 
+    QList<QLabel *> times;
+    QList<QLabel *> types;
+    QList<QLabel *> intensities;
+
 private slots:
     void powerShortClick();
     void powerLongClick();
@@ -40,5 +49,6 @@ private slots:
     void finish();
     void runCheckup();
     void batteryDrain();
+    void record();
 };
 #endif // MAINWINDOW_H
