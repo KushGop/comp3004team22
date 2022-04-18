@@ -75,12 +75,16 @@ void MainWindow::powerShortClick()
     if(pwrPress.isActive()){
         int time = controller->cycleSessionGroup(ui->customDuration->value());
         pwrPress.stop();
-        if(time-1==-1){
-            times[2]->setStyleSheet("color:black");
-        }else{
-            times[time-1]->setStyleSheet("color:black");
+
+        if(time != -1)
+        {
+            if(time-1==-1){
+                times[2]->setStyleSheet("color:black");
+            }else{
+                times[time-1]->setStyleSheet("color:black");
+            }
+            times[time]->setStyleSheet("color:green");
         }
-        times[time]->setStyleSheet("color:green");
     }
 }
 
@@ -117,12 +121,15 @@ void MainWindow::intUp()
     }
     else{ //Before session gets going change session number
         int ses = controller->cycleSessionNumber(true);
-        if(ses-1==-1){
-            types[7]->setStyleSheet("color:black");
-        }else{
-            types[ses-1]->setStyleSheet("color:black");
+        if(ses != -1)
+        {
+            if(ses-1==-1){
+                types[7]->setStyleSheet("color:black");
+            }else{
+                types[ses-1]->setStyleSheet("color:black");
+            }
+            types[ses]->setStyleSheet("color:green");
         }
-        types[ses]->setStyleSheet("color:green");
     }
 
 }
@@ -136,12 +143,15 @@ void MainWindow::intDown()
     }
     else{ //Before session gets going change session number
         int ses = controller->cycleSessionNumber(false);
-        if(ses==7){
-            types[0]->setStyleSheet("color:black");
-        }else{
-            types[ses+1]->setStyleSheet("color:black");
+        if(ses != -1)
+        {
+            if(ses==7){
+                types[0]->setStyleSheet("color:black");
+            }else{
+                types[ses+1]->setStyleSheet("color:black");
+            }
+            types[ses]->setStyleSheet("color:green");
         }
-        types[ses]->setStyleSheet("color:green");
     }
 }
 
@@ -187,6 +197,8 @@ void MainWindow::record()
 {
     qInfo("RECORDING SESSION");
     QString s = controller->getCurrentTherapy()->sessionString();
+
+    QString fn = "record.txt";
     QFile file(fn);
     if(file.open(QIODevice::WriteOnly|QIODevice::Append)){
         QTextStream stream(&file);
