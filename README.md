@@ -1,3 +1,0 @@
-# comp3004team22
-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
-
