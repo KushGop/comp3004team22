@@ -175,6 +175,13 @@ void MainWindow::finish()
    controller->endTherapySession();
    checkupInterval.stop();
    batteryDrainer.stop();
+
+   for(int i=0;i<8;i++){
+   types[i]->setStyleSheet("color:black");
+   intensities[i]->setStyleSheet("color:black");
+   }
+   for(int i=0;i<3;i++)
+       times[i]->setStyleSheet("color:black");
 }
 
 void MainWindow::runCheckup()
@@ -185,6 +192,13 @@ void MainWindow::runCheckup()
        mainRun.stop();
        checkupInterval.stop();
        batteryDrainer.stop();
+
+       for(int i=0;i<8;i++){
+       types[i]->setStyleSheet("color:black");
+       intensities[i]->setStyleSheet("color:black");
+       }
+       for(int i=0;i<3;i++)
+           times[i]->setStyleSheet("color:black");
    }
 }
 

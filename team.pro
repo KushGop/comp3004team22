@@ -17,18 +17,14 @@ DEFINES += QT_DEPRECATED_WARNINGS
 
 SOURCES += \
     Battery.cpp \
-    dbmanager.cpp \
     Control.cpp \
-    OasisRecord.cpp \
     Therapy.cpp \
     main.cpp \
     mainwindow.cpp
 
 HEADERS += \
     Battery.h \
-    dbmanager.h \
     Control.h \
-    OasisRecord.h \
     Therapy.h \
     mainwindow.h
 
