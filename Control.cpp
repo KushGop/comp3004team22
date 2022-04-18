@@ -5,7 +5,7 @@ Control::Control()
     : poweredOn(false), sessionGroup(1), sessionNumber(0), sessionInProg(false), leftClip(false), rightClip(false)
 {
     battery = new Battery(100.0);
-    currentTherapy = new Therapy("Custom",20,4,"MET",0.5,3);
+    currentTherapy = new Therapy("Custom",20,1,"MET",0.5,3);
 
     cesModes[0]="MET";
     cesModes[1]="Sub-Delta";
